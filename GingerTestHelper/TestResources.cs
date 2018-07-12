@@ -76,7 +76,7 @@ namespace GingerTestHelper
             string FullPath = Path.Combine(GetTestResourcesFolder(), fileName);
             if (!System.IO.File.Exists(FullPath))
             {
-                throw new Exception("Test resource file not found: " + FullPath);
+                throw new Exception("Test resource file not found: " + FullPath + " >>> Verify File->Properties->CopyToOutPutDirectory");
             }
             return FullPath;
             
@@ -87,7 +87,7 @@ namespace GingerTestHelper
             string FullPath = Path.Combine(GetTestResourcesFolder(), folder);
             if (!System.IO.Directory.Exists(FullPath))
             {
-                throw new Exception("Test resource folder not found: " + FullPath);
+                throw new Exception("Test resource folder not found: " + FullPath + " >>> Verify File->Properties->CopyToOutPutDirectory");
             }
             return FullPath;
         }
