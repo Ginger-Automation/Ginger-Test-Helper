@@ -28,10 +28,11 @@ namespace GingerTestHelper
 {
     public class TestResources
     {
+        public static Assembly Assembly {get; set;}        
 
         private static string GetUnitTestBinPath()
         {
-            string s = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);            
+            string s = System.IO.Path.GetDirectoryName(Assembly.Location);            
             return s;
         }
 
