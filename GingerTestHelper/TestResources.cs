@@ -32,6 +32,11 @@ namespace GingerTestHelper
 
         private static string GetUnitTestBinPath()
         {
+            if (Assembly is null)
+            {
+                throw new Exception("Assembly need to be set");
+            }
+
             string s = System.IO.Path.GetDirectoryName(Assembly.Location);            
             return s;
         }
