@@ -17,12 +17,8 @@ limitations under the License.
 #endregion
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GingerTestHelper
 {
@@ -43,63 +39,86 @@ namespace GingerTestHelper
 
         private static string GetTestResourcesFolder()
         {            
-            string DocumentsFolder = Path.Combine(GetUnitTestBinPath(), @"TestResources");
-            return DocumentsFolder;
+            string documentsFolder = Path.Combine(GetUnitTestBinPath(), @"TestResources");
+            return documentsFolder;
         }
 
         public static string getGingerUnitTesterTempFolder(string path1, string path2 =null, string path3 =null)
         {
             // TODO: when test start clear this folder
             
-            string TempFolder = Path.Combine(GetUnitTestBinPath(), "TempFolder" , path1);
-            if (!System.IO.Directory.Exists(TempFolder))
+            string tempFolder = Path.Combine(GetUnitTestBinPath(), "TempFolder" , path1);
+            if (!System.IO.Directory.Exists(tempFolder))
             {
-                System.IO.Directory.CreateDirectory(TempFolder);
+                System.IO.Directory.CreateDirectory(tempFolder);
             }
             if (path2 != null)
             {
-                TempFolder = Path.Combine(TempFolder, path2);
-                if (!System.IO.Directory.Exists(TempFolder))
+                tempFolder = Path.Combine(tempFolder, path2);
+                if (!System.IO.Directory.Exists(tempFolder))
                 {
-                    System.IO.Directory.CreateDirectory(TempFolder);
+                    System.IO.Directory.CreateDirectory(tempFolder);
                 }
             }
             if (path3 != null)
             {
-                TempFolder = Path.Combine(TempFolder, path3);
-                if (!System.IO.Directory.Exists(TempFolder))
+                tempFolder = Path.Combine(tempFolder, path3);
+                if (!System.IO.Directory.Exists(tempFolder))
                 {
-                    System.IO.Directory.CreateDirectory(TempFolder);
+                    System.IO.Directory.CreateDirectory(tempFolder);
                 }
             }
 
-            return TempFolder;
+            return tempFolder;
         }
 
         public static string GetTestResourcesFile(string fileName)
         {
-            string FullPath = Path.Combine(GetTestResourcesFolder(), fileName);
-            if (!System.IO.File.Exists(FullPath))
+            string fullPath = Path.Combine(GetTestResourcesFolder(), fileName);
+            if (!System.IO.File.Exists(fullPath))
             {
-                throw new Exception("Test resource file not found: " + FullPath + " >>> Verify File->Properties->CopyToOutPutDirectory");
+                throw new Exception("Test resource file not found: " + fullPath + " >>> Verify File->Properties->CopyToOutPutDirectory");
             }
-            return FullPath;
-            
+            return fullPath;            
         }
 
         public static string GetTestResourcesFolder(string folder)
         {
-            string FullPath = Path.Combine(GetTestResourcesFolder(), folder);
-            if (!System.IO.Directory.Exists(FullPath))
+            string fullPath = Path.Combine(GetTestResourcesFolder(), folder);
+            if (!System.IO.Directory.Exists(fullPath))
             {
-                throw new Exception("Test resource folder not found: " + FullPath + " >>> Verify File->Properties->CopyToOutPutDirectory");
+                throw new Exception("Test resource folder not found: " + fullPath + " >>> Verify File->Properties->CopyToOutPutDirectory");
             }
-            return FullPath;
+            return fullPath;
         }
 
         public static string GetTempFile(string fileName)
         {
             return Path.Combine(getGingerUnitTesterTempFolder(""), fileName);
         }
+
+        public static string GetTempFolder(string folderName)
+        {
+            return getGingerUnitTesterTempFolder(folderName);
+        }
+
+        public static void EmptyTestResourcesFolder()
+        {
+            string testResFolder = Path.Combine(GetUnitTestBinPath(), @"TestResources");
+
+            if (System.IO.Directory.Exists(testResFolder))
+            {
+                System.IO.DirectoryInfo directory = new DirectoryInfo(testResFolder);
+                foreach (System.IO.FileInfo file in directory.GetFiles())
+                {
+                    file.Delete();
+                }
+            }
+            else
+            {
+                throw new Exception("Test resources folder not found: " + testResFolder);
+            }
+        }
+
     }
 }
