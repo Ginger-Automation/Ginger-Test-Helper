@@ -2,6 +2,11 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Reflection;
 
+/*
+ * Please copy the TestAssemblyInit.cs class into the test project
+ * Don't make any changes in the file other than the namespace change
+ */
+
 namespace GingerAutoPilotTest
 {
     [TestClass]
@@ -15,4 +20,5 @@ namespace GingerAutoPilotTest
             TestResources.Assembly = Assembly.GetExecutingAssembly();
         }
     }
+
 }

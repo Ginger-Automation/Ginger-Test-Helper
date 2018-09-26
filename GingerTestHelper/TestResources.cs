@@ -30,17 +30,15 @@ namespace GingerTestHelper
         {
             if (Assembly is null)
             {
-                throw new Exception("Assembly need to be set");
+                throw new Exception("Assembly need to be set - you might have to copy the TestAssemblyInit.cs file in your test project");
             }
 
-            string s = System.IO.Path.GetDirectoryName(Assembly.Location);            
-            return s;
+            return System.IO.Path.GetDirectoryName(Assembly.Location);           
         }
 
         private static string GetTestResourcesFolder()
         {            
-            string documentsFolder = Path.Combine(GetUnitTestBinPath(), @"TestResources");
-            return documentsFolder;
+            return Path.Combine(GetUnitTestBinPath(), @"TestResources");
         }
 
         public static string getGingerUnitTesterTempFolder(string path1, string path2 =null, string path3 =null)
@@ -100,24 +98,6 @@ namespace GingerTestHelper
         public static string GetTempFolder(string folderName)
         {
             return getGingerUnitTesterTempFolder(folderName);
-        }
-
-        public static void EmptyTestResourcesFolder()
-        {
-            string testResFolder = Path.Combine(GetUnitTestBinPath(), @"TestResources");
-
-            if (System.IO.Directory.Exists(testResFolder))
-            {
-                System.IO.DirectoryInfo directory = new DirectoryInfo(testResFolder);
-                foreach (System.IO.FileInfo file in directory.GetFiles())
-                {
-                    file.Delete();
-                }
-            }
-            else
-            {
-                throw new Exception("Test resources folder not found: " + testResFolder);
-            }
         }
 
     }
