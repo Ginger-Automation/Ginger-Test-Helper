@@ -8,6 +8,38 @@ namespace SampleProjectTest
     [TestClass]
     public class MyMathTest
     {
+        public TestContext TestContext { get; set; }
+
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext TestContext)
+        {
+
+        }
+
+
+        [ClassCleanup]
+        public static void ClassCleanup()
+        {
+            
+        }
+
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            // write 
+
+
+            string test = TestContext.TestName;
+            TestContext.Properties.Add("koko", 123);
+
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            string test = TestContext.TestName;
+        }
+
         [TestMethod]
         public void TestMethod1()
         {

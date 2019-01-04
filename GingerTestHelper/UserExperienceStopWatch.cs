@@ -21,7 +21,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 
-namespace GingerCoreNETUnitTest.GeneralLib
+namespace GingerTestHelper
 {
     public class UserExperienceStopWatch
     {

@@ -41,7 +41,7 @@ namespace GingerTestHelper
             return Path.Combine(GetUnitTestBinPath(), @"TestResources");
         }
 
-        public static string getGingerUnitTesterTempFolder(string path1, string path2 =null, string path3 =null)
+        public static string GetTestTempFolder(string path1, string path2 =null, string path3 =null)
         {
             // TODO: when test start clear this folder
             
@@ -92,12 +92,12 @@ namespace GingerTestHelper
 
         public static string GetTempFile(string fileName)
         {
-            return Path.Combine(getGingerUnitTesterTempFolder(""), fileName);
+            return Path.Combine(GetTestTempFolder(""), fileName);
         }
 
         public static string GetTempFolder(string folderName)
         {
-            return getGingerUnitTesterTempFolder(folderName);
+            return GetTestTempFolder(folderName);
         }
 
     }
