@@ -151,6 +151,27 @@ namespace GingerTestHelper
         }
 
 
+        string mTempFolder;
+        string TempFolder
+        {
+            get
+            {
+                if (mTempFolder == null)
+                {
+                    mTempFolder = TestResources.GetTempFolder(mTestContext.FullyQualifiedTestClassName);                    
+                    if (Directory.Exists(mTempFolder))
+                    {
+                        Directory.Delete(mTempFolder, true);
+                    }
+
+                    Directory.CreateDirectory(mTempFolder);
+                }
+
+                return mTempFolder;
+            }
+
+        }
+
         /// <summary>
         /// Return a new temp file name which include Test Resources temp folder + ClassName + "." + fileName
         /// </summary>
@@ -158,7 +179,7 @@ namespace GingerTestHelper
         /// <returns></returns>
         public string GetTempFileName(string fileName)
         {
-            return TestResources.GetTempFile(mTestContext.FullyQualifiedTestClassName + "." + fileName);
+            return Path.Combine(TempFolder + Path.DirectorySeparatorChar + fileName);
         }
 
         public string GetTempFolder(string path1, string path2 = null, string path3 = null)

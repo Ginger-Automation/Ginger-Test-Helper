@@ -1,6 +1,7 @@
 using GingerTestHelper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SampleProject;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -99,6 +100,28 @@ namespace SampleProjectTest
             //Assert                       
             Assert.AreEqual(32, total, "total");
             Assert.AreEqual(12, fileSize, "fileSize");
+
+            mTestHelper.AddTestArtifact(fileName);
+        }
+
+
+        [TestMethod]
+        public void AppenTempTestFile()
+        {
+            // Arrange
+            string fileName = mTestHelper.GetTempFileName("2.txt");
+
+
+            //Act
+            for (int i=0;i<10;i++)
+            {
+                System.IO.File.AppendAllText(fileName, "line " + i + Environment.NewLine);
+            }
+                        
+            long fileSize = new FileInfo(fileName).Length;
+
+            //Assert                       
+            Assert.AreEqual(80, fileSize, "fileSize");            
 
             mTestHelper.AddTestArtifact(fileName);
         }
