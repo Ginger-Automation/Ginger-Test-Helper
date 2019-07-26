@@ -6,38 +6,34 @@ using System.Collections.Generic;
 namespace SampleProjectTest
 {
     [TestClass]
-    public class MyMathTest
-    {
-        public TestContext TestContext { get; set; }
-
+    public class MyMathTest 
+    {        
+        static TestHelper mTestHelper;
+        
         [ClassInitialize]
         public static void ClassInitialize(TestContext TestContext)
         {
-
+            mTestHelper = new TestHelper(TestContext);
         }
 
 
         [ClassCleanup]
         public static void ClassCleanup()
         {
-            
+            mTestHelper.ClassCleanup();
         }
 
         [TestInitialize]
         public void TestInitialize()
         {
-            // write 
-
-
-            string test = TestContext.TestName;
-            TestContext.Properties.Add("koko", 123);
-
+            mTestHelper.TestInitialize();
+            
         }
 
         [TestCleanup]
         public void TestCleanup()
         {
-            string test = TestContext.TestName;
+            mTestHelper.TestCleanup();
         }
 
         [TestMethod]
@@ -55,9 +51,35 @@ namespace SampleProjectTest
             //Act
             int total = MyMath.Sum(numbers);
 
-            //Assert
+            //Assert           
             Assert.AreEqual(4, numbers.Count, "numbers count is 4");
             Assert.AreEqual(20, total, "total=20");
+            
         }
+        [TestMethod]
+        public void TestMethod2()
+        {
+            // Arrange
+            string fileName = mTestHelper.GetTestResourcesFile("numbers.txt");
+            string[] list = System.IO.File.ReadAllLines(fileName);
+            List<int> numbers = new List<int>();
+            foreach (string line in list)
+            {
+                mTestHelper.Log("line = " + line);
+                numbers.Add(int.Parse(line));
+            }
+
+            //Act
+            int total = MyMath.Sum(numbers);
+
+            //Assert           
+            Assert.AreEqual(4, numbers.Count, "numbers count is 4");
+            Assert.AreEqual(20, total, "total=20");
+            
+            mTestHelper.CreateTestArtifact("file1.txt", "fffffffffffffffffffff");
+            mTestHelper.AddTestArtifact(fileName);
+        }
+
+
     }
 }

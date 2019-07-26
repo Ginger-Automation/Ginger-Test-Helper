@@ -24,7 +24,7 @@ namespace GingerTestHelper
 {
     public class TestResources
     {
-        public static Assembly Assembly {get; set;}        
+        public static Assembly Assembly { get; set; }
 
         private static string GetUnitTestBinPath()
         {
@@ -33,19 +33,19 @@ namespace GingerTestHelper
                 throw new Exception("Assembly need to be set - you might have to copy the TestAssemblyInit.cs file in your test project");
             }
 
-            return System.IO.Path.GetDirectoryName(Assembly.Location);           
+            return System.IO.Path.GetDirectoryName(Assembly.Location);
         }
 
         private static string GetTestResourcesFolder()
-        {            
+        {
             return Path.Combine(GetUnitTestBinPath(), @"TestResources");
         }
 
-        public static string GetTestTempFolder(string path1, string path2 =null, string path3 =null)
+        public static string GetTestTempFolder(string path1, string path2 = null, string path3 = null)
         {
             // TODO: when test start clear this folder
-            
-            string tempFolder = Path.Combine(GetUnitTestBinPath(), "TempFolder" , path1);
+
+            string tempFolder = Path.Combine(GetUnitTestBinPath(), "TempFolder", path1);
             if (!System.IO.Directory.Exists(tempFolder))
             {
                 System.IO.Directory.CreateDirectory(tempFolder);
@@ -77,7 +77,7 @@ namespace GingerTestHelper
             {
                 throw new Exception("Test resource file not found: " + fullPath + " >>> Verify File->Properties->CopyToOutPutDirectory");
             }
-            return fullPath;            
+            return fullPath;
         }
 
         public static string GetTestResourcesFolder(string folder)
@@ -100,5 +100,17 @@ namespace GingerTestHelper
             return GetTestTempFolder(folderName);
         }
 
+        public static string GetTestArtifactsFolder()
+        {
+            // TODO: when test start clear this folder
+
+            string testArtifactsFolder = Path.Combine(GetUnitTestBinPath(), "TestArtifacts");
+            if (!System.IO.Directory.Exists(testArtifactsFolder))
+            {
+                System.IO.Directory.CreateDirectory(testArtifactsFolder);
+            }
+            return testArtifactsFolder;
+
+        }
     }
 }
