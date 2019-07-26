@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
@@ -10,24 +9,20 @@ namespace GingerTestHelper
     public class TestHelper
     {
         private TestContext mTestContext;
-
         StringBuilder mLog = new StringBuilder();
-
         Stopwatch mTestStopwatch = new Stopwatch();
-
         Stopwatch mclassStopwatch = new Stopwatch();
-
         int PassedCounter;
         int FailedCounter;
 
-        public TestHelper(TestContext testContext)
-        {                    
-            this.mTestContext = testContext;            
+        public void ClassInitialize(TestContext testContext)
+        {
+            this.mTestContext = testContext;
             WriteLog("ClassInitialize: " + testContext.FullyQualifiedTestClassName);
             WriteLog("_____________________________________________________________________________________________________________________________________");
             mclassStopwatch.Start();
         }
-
+      
        
         private void WriteLog(string logMessage)
         {
@@ -85,11 +80,10 @@ namespace GingerTestHelper
                     mTestArtifactsFolder = Path.Combine(TestResources.GetTestArtifactsFolder(), mTestContext.FullyQualifiedTestClassName);
 
                     // clean artifacts folder
-                    if (Directory.Exists(TestArtifactsFolder))
+                    if (Directory.Exists(mTestArtifactsFolder))
                     {
-                        Directory.Delete(TestArtifactsFolder, true);
+                        Directory.Delete(mTestArtifactsFolder, true);
                     };
-
                     
                     // Create new empty folder for test artifacts for the test class
                     Directory.CreateDirectory(mTestArtifactsFolder);                    

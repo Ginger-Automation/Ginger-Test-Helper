@@ -2,20 +2,20 @@ using GingerTestHelper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SampleProject;
 using System.Collections.Generic;
+using System.IO;
 
 namespace SampleProjectTest
 {
     [TestClass]
     public class MyMathTest 
-    {        
-        static TestHelper mTestHelper;
-
+    {
+        static TestHelper mTestHelper = new TestHelper();
         public TestContext TestContext { get; set; }
 
         [ClassInitialize]
         public static void ClassInitialize(TestContext TestContext)
-        {
-            mTestHelper = new TestHelper(TestContext);
+        {            
+            mTestHelper.ClassInitialize(TestContext);
         }
 
 
@@ -94,10 +94,12 @@ namespace SampleProjectTest
 
             //Act
             int total = MyMath.Sum(fileName);
+            long fileSize = new FileInfo(fileName).Length;
 
             //Assert                       
-            Assert.AreEqual(33, total, "total=32");
-            
+            Assert.AreEqual(32, total, "total");
+            Assert.AreEqual(12, fileSize, "fileSize");
+
             mTestHelper.AddTestArtifact(fileName);
         }
 

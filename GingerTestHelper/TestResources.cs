@@ -45,7 +45,7 @@ namespace GingerTestHelper
         {
             // TODO: when test start clear this folder
 
-            string tempFolder = Path.Combine(GetUnitTestBinPath(), "TempFolder", path1);
+            string tempFolder = Path.Combine(GetUnitTestBinPath(), "TestTemp", path1);
             if (!System.IO.Directory.Exists(tempFolder))
             {
                 System.IO.Directory.CreateDirectory(tempFolder);
