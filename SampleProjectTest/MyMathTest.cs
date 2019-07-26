@@ -9,7 +9,9 @@ namespace SampleProjectTest
     public class MyMathTest 
     {        
         static TestHelper mTestHelper;
-        
+
+        public TestContext TestContext { get; set; }
+
         [ClassInitialize]
         public static void ClassInitialize(TestContext TestContext)
         {
@@ -26,7 +28,7 @@ namespace SampleProjectTest
         [TestInitialize]
         public void TestInitialize()
         {
-            mTestHelper.TestInitialize();
+            mTestHelper.TestInitialize(TestContext);
             
         }
 
@@ -56,6 +58,8 @@ namespace SampleProjectTest
             Assert.AreEqual(20, total, "total=20");
             
         }
+
+
         [TestMethod]
         public void TestMethod2()
         {
@@ -77,6 +81,23 @@ namespace SampleProjectTest
             Assert.AreEqual(20, total, "total=20");
             
             mTestHelper.CreateTestArtifact("file1.txt", "fffffffffffffffffffff");
+            mTestHelper.AddTestArtifact(fileName);
+        }
+        
+        [TestMethod]
+        public void CreateTempTestFile()
+        {
+            // Arrange
+            string fileName = mTestHelper.GetTempFileName("1.txt");
+            string txt = "10,4,6,7,2,3";
+            System.IO.File.WriteAllText(fileName, txt);
+
+            //Act
+            int total = MyMath.Sum(fileName);
+
+            //Assert                       
+            Assert.AreEqual(33, total, "total=32");
+            
             mTestHelper.AddTestArtifact(fileName);
         }
 

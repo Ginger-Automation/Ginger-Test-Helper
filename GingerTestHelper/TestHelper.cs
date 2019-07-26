@@ -17,10 +17,14 @@ namespace GingerTestHelper
 
         Stopwatch mclassStopwatch = new Stopwatch();
 
+        int PassedCounter;
+        int FailedCounter;
+
         public TestHelper(TestContext testContext)
         {                    
             this.mTestContext = testContext;            
             WriteLog("ClassInitialize: " + testContext.FullyQualifiedTestClassName);
+            WriteLog("_____________________________________________________________________________________________________________________________________");
             mclassStopwatch.Start();
         }
 
@@ -35,15 +39,19 @@ namespace GingerTestHelper
             mclassStopwatch.Stop();
             string logMessage = "ClassCleanup: " + mTestContext.FullyQualifiedTestClassName + ", Elapsed: " + mclassStopwatch.ElapsedMilliseconds;
             WriteLog(logMessage);
+            WriteLog("Passed: " + PassedCounter);
+            WriteLog("Failed: " + FailedCounter);
+            
             if (mLog.Length > 0)
             {
-                string fileName = Path.Combine(TestArtifactsFolder, mTestContext.FullyQualifiedTestClassName + ".Log");
+                string fileName = Path.Combine(TestArtifactsFolder, mTestContext.FullyQualifiedTestClassName + ".log");
                 System.IO.File.WriteAllText(fileName, mLog.ToString());
             }            
         }
 
-        public void TestInitialize()
+        public void TestInitialize(TestContext testContext)
         {
+            mTestContext = testContext;
             string logMessage = "TestInitialize: " + mTestContext.TestName;
             WriteLog(logMessage);
             mTestStopwatch.Restart();
@@ -52,9 +60,19 @@ namespace GingerTestHelper
         public void TestCleanup()
         {
             mTestStopwatch.Stop();
+
+            if (mTestContext.CurrentTestOutcome == UnitTestOutcome.Passed)
+            {
+                PassedCounter++;
+            }
+            else
+            {
+                FailedCounter++;
+                WriteLog(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>   !!! Test Failed !!!   <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+            }
             string logMessage = "TestCleanup: " + mTestContext.TestName + ", Result: " + mTestContext.CurrentTestOutcome + ", Elapsed: " + mTestStopwatch.ElapsedMilliseconds;
             WriteLog(logMessage);
-            WriteLog("======================================================================================================================================");
+            WriteLog("_____________________________________________________________________________________________________________________________________");
         }
 
         string mTestArtifactsFolder; 
@@ -91,7 +109,7 @@ namespace GingerTestHelper
         {
             string fullPAth = Path.Combine(TestArtifactsFolder, fileName);
             System.IO.File.WriteAllText(fullPAth, content);
-            WriteLog("Test artifact file name = " + fileName);
+            WriteLog("Created Test artifact file with content = " + fileName);
         }
 
         /// <summary>
@@ -115,13 +133,46 @@ namespace GingerTestHelper
                 targetFile = newFileName;
             }
             File.Copy(fileName, targetFile);
-            WriteLog("Test artifact file name = " + fileName);
+            WriteLog("Added test artifact file = " + fileName);
         }
 
         public string GetTestResourcesFile(string fileName)
         {
             return TestResources.GetTestResourcesFile(fileName);
         }
+
+        public string GetTestResourcesFile(string folder, string fileName)
+        {
+            return TestResources.GetTestResourcesFile(folder + Path.DirectorySeparatorChar + fileName);
+        }
+
+        public string GetTestResourcesFile(string folder1, string folder2, string fileName)
+        {
+            return TestResources.GetTestResourcesFile(folder1 + Path.DirectorySeparatorChar + folder2 + Path.DirectorySeparatorChar + fileName);
+        }
+
+        public string GetTestResourcesFile(string folder1, string folder2, string folder3, string fileName)
+        {
+            return TestResources.GetTestResourcesFile(folder1 + Path.DirectorySeparatorChar + folder2 + Path.DirectorySeparatorChar + folder3 + Path.DirectorySeparatorChar + fileName);
+        }
+
+
+        /// <summary>
+        /// Return a new temp file name which include Test Resources temp folder + ClassName + "." + fileName
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public string GetTempFileName(string fileName)
+        {
+            return TestResources.GetTempFile(mTestContext.FullyQualifiedTestClassName + "." + fileName);
+        }
+
+        public string GetTempFolder(string path1, string path2 = null, string path3 = null)
+        {
+            return TestResources.GetTestTempFolder(path1, path2, path3);
+        }
+
+
 
         public void Log(string message)
         {

@@ -14,5 +14,17 @@ namespace SampleProject
             }
             return total;
         }
+
+        public static int Sum(string fileName)
+        {
+            string txt = System.IO.File.ReadAllText(fileName);
+            string[] numbers = txt.Split(',');
+            List<int> list = new List<int>();
+            foreach (string number in numbers)
+            {
+                list.Add(int.Parse(number));                    
+            }
+            return Sum(list);
+        }
     }
 }
