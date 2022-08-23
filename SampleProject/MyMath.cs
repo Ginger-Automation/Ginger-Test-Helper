@@ -8,7 +8,7 @@ namespace SampleProject
         public static int Sum(List<int> list)
         {
             int total = 0;
-            foreach(int num in list)
+            foreach (int num in list)
             {
                 total += num;
             }
@@ -22,7 +22,7 @@ namespace SampleProject
             List<int> list = new List<int>();
             foreach (string number in numbers)
             {
-                list.Add(int.Parse(number));                    
+                list.Add(int.Parse(number));
             }
             return Sum(list);
         }

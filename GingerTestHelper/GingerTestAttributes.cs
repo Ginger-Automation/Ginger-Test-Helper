@@ -1,4 +1,4 @@
-#region License
+﻿#region License
 /*
 Copyright © 2014-2018 European Support Limited
 
@@ -21,7 +21,6 @@ using System.Collections.Generic;
 
 namespace GingerTestHelper
 {
-
     /// <summary>
     /// Basic core tests runs fast usually in ms (must be less than 500 ms), can run in parallel – no dependency – no Mutex
     /// </summary>
@@ -55,11 +54,4 @@ namespace GingerTestHelper
             get { return new List<string> { "Level3" }; }
         }
     }
-
-
-    
-
-
-
-
 }

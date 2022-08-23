@@ -8,14 +8,14 @@ using System.IO;
 namespace SampleProjectTest
 {
     [TestClass]
-    public class MyMathTest 
+    public class MyMathTest
     {
         static TestHelper mTestHelper = new TestHelper();
         public TestContext TestContext { get; set; }
 
         [ClassInitialize]
         public static void ClassInitialize(TestContext TestContext)
-        {            
+        {
             mTestHelper.ClassInitialize(TestContext);
         }
 
@@ -30,7 +30,7 @@ namespace SampleProjectTest
         public void TestInitialize()
         {
             mTestHelper.TestInitialize(TestContext);
-            
+
         }
 
         [TestCleanup]
@@ -46,7 +46,7 @@ namespace SampleProjectTest
             string fileName = TestResources.GetTestResourcesFile("numbers.txt");
             string[] list = System.IO.File.ReadAllLines(fileName);
             List<int> numbers = new List<int>();
-            foreach(string line in list)
+            foreach (string line in list)
             {
                 numbers.Add(int.Parse(line));
             }
@@ -57,7 +57,7 @@ namespace SampleProjectTest
             //Assert           
             Assert.AreEqual(4, numbers.Count, "numbers count is 4");
             Assert.AreEqual(20, total, "total=20");
-            
+
         }
 
 
@@ -80,11 +80,11 @@ namespace SampleProjectTest
             //Assert           
             Assert.AreEqual(4, numbers.Count, "numbers count is 4");
             Assert.AreEqual(20, total, "total=20");
-            
+
             mTestHelper.CreateTestArtifact("file1.txt", "fffffffffffffffffffff");
             mTestHelper.AddTestArtifact(fileName);
         }
-        
+
         [TestMethod]
         public void CreateTempTestFile()
         {
@@ -113,15 +113,15 @@ namespace SampleProjectTest
 
 
             //Act
-            for (int i=0;i<10;i++)
+            for (int i = 0; i < 10; i++)
             {
                 System.IO.File.AppendAllText(fileName, "line " + i + Environment.NewLine);
             }
-                        
+
             long fileSize = new FileInfo(fileName).Length;
 
             //Assert                       
-            Assert.AreEqual(80, fileSize, "fileSize");            
+            Assert.AreEqual(80, fileSize, "fileSize");
 
             mTestHelper.AddTestArtifact(fileName);
         }

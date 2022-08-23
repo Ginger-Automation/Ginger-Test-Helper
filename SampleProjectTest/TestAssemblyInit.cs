@@ -7,7 +7,8 @@ using System.Reflection;
  * Don't make any changes in the file other than the namespace change
  */
 
-namespace GingerAutoPilotTest
+
+namespace SampleProjectTest
 {
     [TestClass]
     public class TestAssemblyInit
@@ -20,5 +21,4 @@ namespace GingerAutoPilotTest
             TestResources.Assembly = Assembly.GetExecutingAssembly();
         }
     }
-
 }
