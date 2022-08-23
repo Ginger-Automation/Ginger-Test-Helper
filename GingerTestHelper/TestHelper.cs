@@ -22,8 +22,8 @@ namespace GingerTestHelper
             WriteLog("_____________________________________________________________________________________________________________________________________");
             mclassStopwatch.Start();
         }
-      
-       
+
+
         private void WriteLog(string logMessage)
         {
             mLog.Append(DateTime.Now.ToString("yyyy/MM/dd hh:mm:ss ")).Append(logMessage).Append(Environment.NewLine);
@@ -36,12 +36,12 @@ namespace GingerTestHelper
             WriteLog(logMessage);
             WriteLog("Passed: " + PassedCounter);
             WriteLog("Failed: " + FailedCounter);
-            
+
             if (mLog.Length > 0)
             {
                 string fileName = Path.Combine(TestArtifactsFolder, mTestContext.FullyQualifiedTestClassName + ".log");
                 System.IO.File.WriteAllText(fileName, mLog.ToString());
-            }            
+            }
         }
 
         public void TestInitialize(TestContext testContext)
@@ -70,13 +70,13 @@ namespace GingerTestHelper
             WriteLog("_____________________________________________________________________________________________________________________________________");
         }
 
-        string mTestArtifactsFolder; 
+        string mTestArtifactsFolder;
         string TestArtifactsFolder
         {
             get
             {
                 if (mTestArtifactsFolder == null)
-                {                                        
+                {
                     mTestArtifactsFolder = Path.Combine(TestResources.GetTestArtifactsFolder(), mTestContext.FullyQualifiedTestClassName);
 
                     // clean artifacts folder
@@ -84,11 +84,11 @@ namespace GingerTestHelper
                     {
                         Directory.Delete(mTestArtifactsFolder, true);
                     };
-                    
+
                     // Create new empty folder for test artifacts for the test class
-                    Directory.CreateDirectory(mTestArtifactsFolder);                    
+                    Directory.CreateDirectory(mTestArtifactsFolder);
                 }
-                
+
                 return mTestArtifactsFolder;
             }
         }
@@ -158,7 +158,7 @@ namespace GingerTestHelper
             {
                 if (mTempFolder == null)
                 {
-                    mTempFolder = TestResources.GetTempFolder(mTestContext.FullyQualifiedTestClassName);                    
+                    mTempFolder = TestResources.GetTempFolder(mTestContext.FullyQualifiedTestClassName);
                     if (Directory.Exists(mTempFolder))
                     {
                         Directory.Delete(mTempFolder, true);
